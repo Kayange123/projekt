@@ -1,6 +1,6 @@
 import Modal from '@/components/Modal';
-import ProjectActions from '@/components/ProjectActions';
-import RelatedProjects from '@/components/RelatedProjects';
+import ProjectActions from '@/components/Project/ProjectActions';
+import RelatedProjects from '@/components/Project/RelatedProjects';
 import { ProjectInterface } from '@/constants/common.types';
 import { getCurrentUser } from '@/libs/session'
 import { fetchProjectDetails } from '@/utils/actions';

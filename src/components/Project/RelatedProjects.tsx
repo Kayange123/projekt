@@ -3,6 +3,7 @@ import { fetchUserProjects } from "@/utils/actions";
 import Image from "next/image";
 import Link from "next/link";
 
+
 interface RelatedProjectsProps {
     userId: string;
     projectId: string;

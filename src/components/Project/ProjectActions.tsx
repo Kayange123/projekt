@@ -22,7 +22,7 @@ const ProjectActions = ({projectId, userId}: ProjectActionsProps) => {
             await deleteProject(projectId, token);
             router.push(`/profile/${userId}`);
         } catch (error) {
-            console.log(error);
+            //console.log(error);
         }finally{
             setIsDeleting(false);
         }

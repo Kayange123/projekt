@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { v2 as cloud } from "cloudinary";
 
-cloud.config({
-    cloud_name: '',
-    api_key: '',
-    api_secret: ''
-})
+          
+cloud.config({ 
+  cloud_name: 'dvkroxwht', 
+  api_key: '639939744831129', 
+  api_secret: 'zx5bYX8vhIToE4J4yiSknThd9fE' 
+});
 
-export async function POST(req: Request, res: Response){
+
+export async function POST(req: Request){
     const { path } = await  req.json();
 
     if(!path){

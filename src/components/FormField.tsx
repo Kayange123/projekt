@@ -13,9 +13,9 @@ interface FormFieldProps {
 const FormField = ({title,state, placeholder, isTextArea, setState, type, required}: FormFieldProps) => {
   return (
     <div className='flexStart flex-col w-full gap-4'>
-        <label htmlFor="" className='w-full text-gray-100'>{title}</label>
+        <label htmlFor="" className='w-full text-gray-600'>{title}</label>
         {isTextArea ? (
-            <textarea placeholder={placeholder} required={required} value={state} className='form_field-input' onChange={(e)=>setState(e.target.value)}/>
+            <textarea rows={4} placeholder={placeholder} required={required} value={state} className='form_field-input' onChange={(e)=>setState(e.target.value)}/>
         ): (
             <input required={required} placeholder={placeholder} value={state} className='form_field-input' onChange={(e)=>setState(e.target.value)} type={type || 'text'}/>
         )}

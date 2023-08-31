@@ -116,7 +116,7 @@ body {
 
 /* Form Field */
 .form_field-input {
-  @apply w-full outline-0  rounded-xl p-4;
+  @apply w-full outline-0 border border-gray-100 rounded-xl p-4;
 }
 
 /* Modal */
@@ -153,7 +153,7 @@ body {
 }
 
 .form_image-label {
-  @apply z-10 text-center w-full h-full p-20 text-gray-100 border-2 border-gray-50 border-dashed;
+  @apply z-10 text-center w-full h-full p-20 text-gray-100 border-2 border-gray-100 border-dashed;
 }
 
 .form_image-input {

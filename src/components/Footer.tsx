@@ -37,7 +37,7 @@ const Footer = () => {
         </div>
         <div className='flexBetween footer_copyright'>
             <p>@{year} Projekt - All rights reserved</p>
-            <p className='text-gray'>
+            <p className='text-black/60'>
                 <span className='text-black font-semibold'>{projectsSubmitted+ " "}</span>  
                 projects submitted
             </p>

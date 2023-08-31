@@ -10,7 +10,7 @@ interface CustomMenuProps{
 
 const CustomMenu = ({title, setState, state, filters}: CustomMenuProps) => {
   return (
-    <div className='flexStart flex-col w-full gap-7'>
+    <div className='flex-start flex-col w-full gap-7'>
         <label htmlFor={title} className='w-full text-gray-100'>
             {title}
         </label>

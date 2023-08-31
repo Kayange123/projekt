@@ -6,11 +6,11 @@ const nextConfig = {
             'res.cloudinary.com',
         ]
     },
-    experimental : {
-        serverComponentsExternalPackages: [
-            'cloudinary', 'graphql-request'
-        ]
-    }
+    // experimental : {
+    //     serverComponentsExternalPackages: [
+    //         'cloudinary', 'graphql-request'
+    //     ]
+    // }
 }
 
 module.exports = nextConfig
