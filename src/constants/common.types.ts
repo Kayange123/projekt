@@ -30,18 +30,10 @@ export interface UserProfile {
     name: string;
     email: string;
     description: string | null;
-    avatarUrl: string;
+    image?: string;
     githubUrl: string | null;
     linkedInUrl: string | null;
-    projects: {
-      edges: { node: ProjectInterface }[];
-      pageInfo: {
-        hasPreviousPage: boolean;
-        hasNextPage: boolean;
-        startCursor: string;
-        endCursor: string;
-      };
-    };
+    projects: ProjectForm[]
 }
 
 export interface SessionInterface extends Session {
@@ -49,15 +41,16 @@ export interface SessionInterface extends Session {
     id: string;
     name: string;
     email: string;
-    avatarUrl: string;
+    image: string;
   };
 }
 
 export interface ProjectForm {
   title: string;
   description: string;
-  image: string;
   liveSiteUrl: string;
   githubUrl: string;
-  category: string;
+  category: string[];
+  createdBy: string;
+  images: string[];
 }

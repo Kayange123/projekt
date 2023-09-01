@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { SessionInterface } from "@/constants/common.types";
 import { NavLinks } from "@/constants/constants";
-import { getCurrentUser } from "@/libs/session";
-import AuthProviders from "../AuthProviders";
 import ProfileMenu from "./ProfileMenu";
 import Button from "../Button";
 
-const Navbar = async () => {
-    const session = await getCurrentUser();
+interface NavbarProps {
+  session: SessionInterface
+}
+
+const Navbar = async ({session}: NavbarProps) => {
+    
     
   return (
     <nav className="flexBetween navbar">

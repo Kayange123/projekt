@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/libs/session';
 import { redirect } from 'next/navigation';
 import React from 'react'
 
+
 const CreateProject = async () => {
   const session = await getCurrentUser();
 

@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import ClientOnly from "@/components/ClientOnly";
 import ToasterProvider from "../Providers/ToasterProvider";
+import { getCurrentUser } from "@/libs/session";
+import { SessionInterface } from "@/constants/common.types";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,18 +12,19 @@ export const metadata: Metadata = {
   description: "Showcase and develop remarkable projects",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getCurrentUser() as SessionInterface;
   return (
     <html lang="en">
       <body>
         <ClientOnly>
           <ToasterProvider />
           <header>
-            <Navbar />
+            <Navbar session={session}/>
           </header>
         </ClientOnly>
         {children}

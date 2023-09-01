@@ -2,13 +2,13 @@ import { getServerSession } from "next-auth";
 import { NextAuthOptions, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 import bcrypt from 'bcrypt';
+import prisma from '@/libs/prismadb';
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
 import CredentialsProvider from "next-auth/providers/credentials";
 import jsonwebtoken from 'jsonwebtoken';
 import { JWT } from "next-auth/jwt";
 import { SessionInterface, UserProfile } from "@/constants/common.types";
-import { createUser, fetchUser,  } from "@/utils/actions";
 
 export const authOptions: NextAuthOptions = {
      
@@ -48,20 +48,20 @@ export const authOptions: NextAuthOptions = {
     ],
     
 
-    // jwt: {
-    //     encode : ({secret, token})=> {
-    //         const encodedToken = jsonwebtoken.sign({
-    //             ...token,
-    //             iss: 'grafbase',
-    //             exp: Math.floor(Date.now()/1000) + 60*60
-    //         }, secret)
-    //         return encodedToken;
-    //     },
-    //     decode: async ({secret, token})=> {
-    //         const decodedToken = jsonwebtoken.verify(token as string, secret) as JWT ;
-    //         return decodedToken;
-    //     }
-    // },
+    jwt: {
+        encode : ({secret, token})=> {
+            const encodedToken = jsonwebtoken.sign({
+                ...token,
+                iss: 'prisma',
+                exp: Math.floor(Date.now()/1000) + 60*60
+            }, secret)
+            return encodedToken;
+        },
+        decode: async ({secret, token})=> {
+            const decodedToken = jsonwebtoken.verify(token as string, secret) as JWT ;
+            return decodedToken;
+        }
+    },
     theme : {
         logo : '/logo.svg',
         colorScheme: 'auto',
@@ -71,13 +71,20 @@ export const authOptions: NextAuthOptions = {
         async signIn({user}: {user : AdapterUser | User}) {
             try {
                 //Check the user from the database!
-                const userExists = await fetchUser(user?.email as string) as {user?: UserProfile}
+                const userExists = await prisma?.user?.findUnique({where: {email: user?.email as string}}) as {user?: UserProfile}
                 
                 //If does not exist, create the user
                 if(!userExists.user){
-                    
-                  const res =  await createUser(user?.name as string, user?.email as string, user?.image as string)
-                   console.log('res', res);
+                    const result= await prisma.user?.create({
+                        data : {
+                            email: user?.email as string,
+                            name: user?.name as string,
+                            image: user?.image as string,       
+                        }
+                    })
+                    return true
+                  //const res =  await createUser(user?.name as string, user?.email as string, user?.image as string)
+                   //console.log('res', res);
                 }
                 return true;
             } catch (error) {
@@ -89,10 +96,8 @@ export const authOptions: NextAuthOptions = {
             const email = session?.user?.email as string;
             
             try {
-                const user = await fetchUser(email) as {user?: UserProfile};
-                
+                const user = await prisma?.user?.findUnique({where: {email: email}}) as {user?: UserProfile }
                 const newSession = {...session, user: {...session?.user, ...user?.user}}
-                 
                 return newSession; 
             } catch (error) {
                 throw new Error('Error fetching user from database');
@@ -111,20 +116,9 @@ export const authOptions: NextAuthOptions = {
 
 export const getCurrentUser = async () =>{
     try {
-        
         const session  = await getServerSession(authOptions) as SessionInterface ;
-        if(!session?.user?.email) return null
-        const user = await prisma?.user.findUnique({
-            where: {
-                email: session?.user?.email as string
-            }
-        })
-        if(!user) return null
-
-        return user
+        return session;
     } catch (error) {
         return null;
-    }
-
-    
+    }  
 }

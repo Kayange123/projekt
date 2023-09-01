@@ -30,7 +30,7 @@ if(providers){
   return (
     <div>
       {Object.values(providers).map((provider: Provider) => (
-        <Button title='sign in' type='button' textColor='text-blue' handleClick={()=> signIn(provider.id)} key={provider.id} />
+        <Button title={provider?.id} type='button' textColor='text-blue' handleClick={()=> signIn(provider.id)} key={provider.id} />
       ))}
     </div>
   )

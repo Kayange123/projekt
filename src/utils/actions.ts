@@ -81,8 +81,8 @@ export const uploadImage =  async (imagePath: string)=>{
 }
 
 // Create the project
-export async function createProject (form: ProjectForm, creatorId: string, token: string) {
-    const imageUrl = await uploadImage(form.image);
+export async function createProject (form: any, creatorId: string, token: string) {
+    const imageUrl = await uploadImage(form?.image);
     if(imageUrl.url){
         client.setHeader('Authorization', `Bearer ${token}`);
         const variables = {
@@ -117,7 +117,7 @@ export async function deleteProject(id:string, token:string) {
 }
 
 //Update project 
-export async function updateProject(form: ProjectForm ,projectId:string, token:string) {
+export async function updateProject(form: any ,projectId:string, token:string) {
     let updatedForm = {...form};
 
     //Checks if the image is base64
