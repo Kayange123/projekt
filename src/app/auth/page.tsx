@@ -5,7 +5,8 @@ import React from 'react'
 const Auth = () => {
   return (
     <Modal>
-        {/* <AuthProviders /> */}
+        <AuthProviders />
+        <h1>Home</h1>
     </Modal>
   )
 }
